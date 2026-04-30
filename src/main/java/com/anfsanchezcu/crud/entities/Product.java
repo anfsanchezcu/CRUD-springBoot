@@ -5,6 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "products")
@@ -13,8 +17,16 @@ public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @NotEmpty(message = "El nombre es obligatorio")
+  @Size(min = 2, max = 30, message = "El nombre debe tener entre 2 y 30 caracteres")
   private String name;
+
+  @Min(value = 200, message = "Debe ser mayor o igual a 200")
+  @NotNull
   private Integer price;
+
+  @NotEmpty(message = "La descripción es obligatoria")
   private String description;
 
   public Long getId() {
