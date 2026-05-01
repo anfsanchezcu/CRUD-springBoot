@@ -1,5 +1,7 @@
 package com.anfsanchezcu.crud.entities;
 
+import com.anfsanchezcu.crud.validation.isRequired;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +20,7 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotEmpty(message = "El nombre es obligatorio")
+  @NotEmpty(message = "{NotEmpty.product}")
   @Size(min = 2, max = 30, message = "El nombre debe tener entre 2 y 30 caracteres")
   private String name;
 
@@ -26,7 +28,7 @@ public class Product {
   @NotNull
   private Integer price;
 
-  @NotEmpty(message = "La descripción es obligatoria")
+  @isRequired
   private String description;
 
   public Long getId() {

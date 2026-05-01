@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anfsanchezcu.crud.ProductValidation;
 import com.anfsanchezcu.crud.entities.Product;
 import com.anfsanchezcu.crud.services.productService;
 
@@ -26,6 +27,9 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/products")
 public class productController {
+
+  @Autowired
+  private ProductValidation validation;
 
   @Autowired
   private productService service;
@@ -46,6 +50,8 @@ public class productController {
 
   @PostMapping
   public ResponseEntity<?> create(@Valid @RequestBody Product product, BindingResult result) {
+   
+    //validation.validate(product, result);
     if(result.hasFieldErrors()) {
       return validation(result);
     }
@@ -82,7 +88,6 @@ public class productController {
     });
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-    
   }
 
 
